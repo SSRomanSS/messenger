@@ -1,3 +1,4 @@
+import re
 from rest_framework.views import APIView
 from rest_framework import generics, status
 from rest_framework.response import Response
@@ -25,14 +26,33 @@ class PaginateListView(generics.ListAPIView):
 
 class MessagePost(APIView):
 
-    def post(self, request):
-        serializer = serializers.MessageSerializer(data=request.data)
 
-        if serializer.is_valid():
-            name = serializer.data.get('email')
-            message = 'Hello! {}'.format(name)
-            return Response({'message': message})
-        else:
+    def post(self, request):
+        if request.method == 'POST':
+            errors = {}
+            data = {}
+            reg_email = r'^\w+([!#$%&\'*+-/=?^_`{|}~]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$'
+            reg_message = r'.*\S.*'
+            email = data.get('email', '').strip()
+            message = data.get('message')
+            if not email or not re.match(reg_email, email):
+                errors['email'] = 'input correct email'
+            else:
+                data['email'] = email
+            if not message or not re.match(reg_message, message):
+                errors['message'] = 'message cannot be empty'
+            elif len(message) > 100:
+                errors['message'] = 'message cannot be empty'
+            else:
+                data['message'] = message
+
+
+
+            serializer = serializers.MessageSerializer(data=request.data)
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
