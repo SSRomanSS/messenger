@@ -2,6 +2,8 @@ from ..models import Message
 from rest_framework import serializers
 import re
 
+# TODO to find solution, why validators not works
+
 
 def custom_email_validator(data):
     """
