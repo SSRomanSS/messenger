@@ -8,7 +8,7 @@ class Message(models.Model):
     time_update = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return f'{self.email}: {self.message}'
+        return f'email: "{self.email}". message_text: "{self.message}". message_id={self.pk}'
 
     class Meta(object):
         verbose_name = 'Message'
