@@ -20,7 +20,7 @@ $ git clone https://github.com/SSRomanSS/messenger.git
 ```
 Run installation in messenger directory:
 ```
-$ pip install -r requirenments.txt
+$ pip install -r requirements.txt
 ```
 ```
 $ python manage.py migrate
@@ -54,4 +54,4 @@ http://localhost:8000/api/messages/single/unique_message_identifier
 
 POST method for creating a new message
 ```
-http://localhost:8000//api/messages/post_message/
+http://localhost:8000/api/messages/post_message/
