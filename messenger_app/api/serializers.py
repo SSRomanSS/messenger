@@ -1,6 +1,8 @@
-from ..models import Message
-from rest_framework import serializers
+# -*- coding: utf-8 -*-
+
 import re
+from rest_framework import serializers
+from ..models import Message
 
 # TODO to find solution, why validators not works
 
@@ -41,6 +43,9 @@ def message_length_validator(data):
 
 
 class MessageSerializer(serializers.ModelSerializer):
+    """
+    Serializer for Message Model
+    """
     class Meta:
         model = Message
         fields = ('email', 'message', 'time_create', 'time_update')
@@ -49,5 +54,3 @@ class MessageSerializer(serializers.ModelSerializer):
             custom_message_validator,
             message_length_validator
         ]
-
-

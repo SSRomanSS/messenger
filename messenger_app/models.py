@@ -2,6 +2,9 @@ from django.db import models
 
 
 class Message(models.Model):
+    """
+    Model for message creation
+    """
     email = models.EmailField()
     message = models.CharField(max_length=100)
     time_create = models.DateTimeField(auto_now_add=True)
